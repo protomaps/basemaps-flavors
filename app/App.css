@@ -20,13 +20,13 @@
   width: 75%;
 }
 
-.themeRow {
+.flavorRow {
   border: 1px solid #111;
   padding: .5rem;
   margin-bottom: 1rem;
 }
 
-.themeRow:hover {
+.flavorRow:hover {
   border: 1px solid #aaa;
   cursor: pointer;
 }

@@ -9,22 +9,22 @@ const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam"];
 
 const nameToFlavor = new Map<string, Flavor>();
 
-import bio from "../themes/bio.ts";
+import bio from "../flavors/bio.ts";
 nameToFlavor.set("bio", bio);
 
-import iris_bloom from "../themes/iris_bloom.ts";
+import iris_bloom from "../flavors/iris_bloom.ts";
 nameToFlavor.set("iris_bloom", iris_bloom);
 
-import seafoam from "../themes/seafoam.ts";
+import seafoam from "../flavors/seafoam.ts";
 nameToFlavor.set("seafoam", seafoam);
 
-// import sol from "../themes/sol.ts";
+// import sol from "../flavors/sol.ts";
 // themeToLayers.set("sol", sol);
 
-import dusk_rose from "../themes/dusk_rose.ts";
+import dusk_rose from "../flavors/dusk_rose.ts";
 nameToFlavor.set("dusk_rose", dusk_rose);
 
-import rainforest from "../themes/rainforest.ts";
+import rainforest from "../flavors/rainforest.ts";
 nameToFlavor.set("rainforest", rainforest);
 
 const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
