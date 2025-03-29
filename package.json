@@ -7,11 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "build-ghpages": "tsc -b && vite build --base=/basemaps-themes/"
+    "build-ghpages": "tsc -b && vite build --base=/basemaps-flavors/"
   },
   "dependencies": {
-    "maplibre-gl": "^4.7.1",
-    "protomaps-themes-base": "^4.3.0",
+    "maplibre-gl": "^5.3.0",
+    "@protomaps/basemaps": "5.1.0",
     "solid-js": "^1.9.3"
   },
   "devDependencies": {

@@ -3,46 +3,32 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./App.css";
 import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
-import { Theme, layersWithCustomTheme, noLabelsWithCustomTheme } from "protomaps-themes-base";
+import { Flavor, layers } from "@protomaps/basemaps";
 
-const THEMES = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam"];
+const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam"];
 
-const themeToLayers = new Map<string, Theme>();
+const nameToFlavor = new Map<string, Flavor>();
 
 import bio from "../themes/bio.ts";
-themeToLayers.set("bio", bio);
+nameToFlavor.set("bio", bio);
 
 import iris_bloom from "../themes/iris_bloom.ts";
-themeToLayers.set("iris_bloom", iris_bloom);
+nameToFlavor.set("iris_bloom", iris_bloom);
 
 import seafoam from "../themes/seafoam.ts";
-themeToLayers.set("seafoam", seafoam);
+nameToFlavor.set("seafoam", seafoam);
 
 // import sol from "../themes/sol.ts";
 // themeToLayers.set("sol", sol);
 
 import dusk_rose from "../themes/dusk_rose.ts";
-themeToLayers.set("dusk_rose", dusk_rose);
+nameToFlavor.set("dusk_rose", dusk_rose);
 
 import rainforest from "../themes/rainforest.ts";
-themeToLayers.set("rainforest", rainforest);
+nameToFlavor.set("rainforest", rainforest);
 
 const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
-  let themeName = THEMES[index];
-  let layers;
-
-  if (showLabels) {
-    layers = layersWithCustomTheme(
-      "protomaps",
-      themeToLayers.get(themeName)!,
-      "en",
-    );
-  } else {
-    layers = noLabelsWithCustomTheme(
-      "protomaps",
-      themeToLayers.get(themeName)!,
-    );
-  }
+  let flavorName = FLAVORS[index];
   return {
     version: 8,
     glyphs:
@@ -53,13 +39,13 @@ const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
         url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
       },
     },
-    layers: layers,
+    layers: layers("protomaps", nameToFlavor.get(flavorName)!, {lang: showLabels ? "en" : undefined}),
   };
 };
 
-const ThemeRow: Component<{name: string, theme: Theme}> = (props) => {
+const FlavorRow: Component<{name: string, flavor: Flavor}> = (props) => {
   return (
-    <div class="themeRow" style={{"background-color":props.theme.background,"color":props.theme.city_label}}>
+    <div class="flavorRow" style={{"background-color":props.flavor.background,"color":props.flavor.city_label}}>
       {props.name}
     </div>
   )
@@ -87,7 +73,7 @@ function App() {
     map.setStyle(getStyle(selectedIndex(),showLabels()));
   });
 
-  const selectTheme = (i: number) => {
+  const selectFlavor = (i: number) => {
     setSelectedIndex(i);
   }
 
@@ -99,7 +85,7 @@ function App() {
   return (
     <div id="container">
       <div class="sidebar">
-        <For each={THEMES}>{(themeName,i) => <div onClick={() => selectTheme(i())}><ThemeRow name={themeName} theme={themeToLayers.get(themeName)!}/></div>}</For>
+        <For each={FLAVORS}>{(flavorName,i) => <div onClick={() => selectFlavor(i())}><FlavorRow name={flavorName} flavor={nameToFlavor.get(flavorName)!}/></div>}</For>
         <input
           id="showLabels"
           type="checkbox"

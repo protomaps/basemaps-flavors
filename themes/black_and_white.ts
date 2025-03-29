@@ -1,9 +1,9 @@
-import { Theme } from "protomaps-themes-base";
+import { Flavor } from "@protomaps/basemaps";
 
 const WHITE = "rgba(255, 255, 255, 1)";
 const BLACK = "rgba(0, 0, 0, 1)";
 
-export default <Theme>{
+export default <Flavor>{
   background: WHITE,
   earth: WHITE,
   park_a: WHITE,
@@ -82,4 +82,7 @@ export default <Theme>{
   state_label: BLACK,
   state_label_halo: WHITE,
   country_label: BLACK
+
+  address_label: BLACK,
+  address_label_halo: WHITE,
 };

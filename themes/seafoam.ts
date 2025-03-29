@@ -1,6 +1,6 @@
-import { Theme } from "protomaps-themes-base";
+import { Flavor } from "@protomaps/basemaps";
 
-export default <Theme>{
+export default <Flavor>{
   background: "rgba(231, 240, 221, 1)",
   earth: "rgba(231, 240, 221, 1)",
   park_a: "#8ad3d4",
@@ -93,4 +93,7 @@ export default <Theme>{
     scrub: "rgba(176, 205, 174, 1)",
     forest: "rgba(149, 207, 194, 1)",
   },
+
+  address_label: "black",
+  address_label_halo: "white",
 };
