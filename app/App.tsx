@@ -5,7 +5,7 @@ import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
 import { Flavor, layers } from "@protomaps/basemaps";
 
-const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam"];
+const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam", "gray"];
 
 const nameToFlavor = new Map<string, Flavor>();
 
@@ -19,7 +19,10 @@ import seafoam from "../flavors/seafoam.ts";
 nameToFlavor.set("seafoam", seafoam);
 
 // import sol from "../flavors/sol.ts";
-// themeToLayers.set("sol", sol);
+// nameToFlavor.set("sol", sol);
+
+import gray from "../flavors/gray.ts";
+nameToFlavor.set("gray", gray);
 
 import dusk_rose from "../flavors/dusk_rose.ts";
 nameToFlavor.set("dusk_rose", dusk_rose);
@@ -27,7 +30,7 @@ nameToFlavor.set("dusk_rose", dusk_rose);
 import rainforest from "../flavors/rainforest.ts";
 nameToFlavor.set("rainforest", rainforest);
 
-const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
+const getStyle = (index: number, showLabels: boolean): StyleSpecification => {
   let flavorName = FLAVORS[index];
   return {
     version: 8,
@@ -36,16 +39,16 @@ const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
     sources: {
       protomaps: {
         type: "vector",
-        url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
+        url: "https://api.protomaps.com/tiles/v4.json?key=41d0bb6a6d7f132e",
       },
     },
-    layers: layers("protomaps", nameToFlavor.get(flavorName)!, {lang: showLabels ? "en" : undefined}),
+    layers: layers("protomaps", nameToFlavor.get(flavorName)!, { lang: showLabels ? "en" : undefined }),
   };
 };
 
-const FlavorRow: Component<{name: string, flavor: Flavor}> = (props) => {
+const FlavorRow: Component<{ name: string, flavor: Flavor }> = (props) => {
   return (
-    <div class="flavorRow" style={{"background-color":props.flavor.background,"color":props.flavor.city_label}}>
+    <div class="flavorRow" style={{ "background-color": props.flavor.background, "color": props.flavor.city_label }}>
       {props.name}
     </div>
   )
@@ -65,12 +68,12 @@ function App() {
 
     map = new maplibregl.Map({
       container: "map",
-      style: getStyle(selectedIndex(),showLabels()),
+      style: getStyle(selectedIndex(), showLabels()),
     });
   });
 
   createEffect(() => {
-    map.setStyle(getStyle(selectedIndex(),showLabels()));
+    map.setStyle(getStyle(selectedIndex(), showLabels()));
   });
 
   const selectFlavor = (i: number) => {
