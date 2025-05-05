@@ -5,7 +5,7 @@ import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
 import { Flavor, layers } from "@protomaps/basemaps";
 
-const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam", "gray"];
+const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam", "flat"];
 
 const nameToFlavor = new Map<string, Flavor>();
 
@@ -21,8 +21,8 @@ nameToFlavor.set("seafoam", seafoam);
 // import sol from "../flavors/sol.ts";
 // nameToFlavor.set("sol", sol);
 
-import gray from "../flavors/gray.ts";
-nameToFlavor.set("gray", gray);
+import flat from "../flavors/flat.ts";
+nameToFlavor.set("flat", flat);
 
 import dusk_rose from "../flavors/dusk_rose.ts";
 nameToFlavor.set("dusk_rose", dusk_rose);
