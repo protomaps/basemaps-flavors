@@ -39,7 +39,7 @@ const getStyle = (index: number, showLabels: boolean): StyleSpecification => {
     sources: {
       protomaps: {
         type: "vector",
-        url: "https://api.protomaps.com/tiles/v4.json?key=41d0bb6a6d7f132e",
+        url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
       },
     },
     layers: layers("protomaps", nameToFlavor.get(flavorName)!, { lang: showLabels ? "en" : undefined }),
