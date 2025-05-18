@@ -1,37 +1,11 @@
-import { For, createSignal, createEffect, onMount, Component } from "solid-js";
+import { For, createSignal, createEffect, createResource, onMount, Component, Show } from "solid-js";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./App.css";
 import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
 import { Flavor, layers } from "@protomaps/basemaps";
 
-const FLAVORS = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam", "flat"];
-
-const nameToFlavor = new Map<string, Flavor>();
-
-import bio from "../flavors/bio.ts";
-nameToFlavor.set("bio", bio);
-
-import iris_bloom from "../flavors/iris_bloom.ts";
-nameToFlavor.set("iris_bloom", iris_bloom);
-
-import seafoam from "../flavors/seafoam.ts";
-nameToFlavor.set("seafoam", seafoam);
-
-// import sol from "../flavors/sol.ts";
-// nameToFlavor.set("sol", sol);
-
-import flat from "../flavors/flat.ts";
-nameToFlavor.set("flat", flat);
-
-import dusk_rose from "../flavors/dusk_rose.ts";
-nameToFlavor.set("dusk_rose", dusk_rose);
-
-import rainforest from "../flavors/rainforest.ts";
-nameToFlavor.set("rainforest", rainforest);
-
-const getStyle = (index: number, showLabels: boolean): StyleSpecification => {
-  let flavorName = FLAVORS[index];
+const getStyle = (flavor: Flavor | undefined, showLabels: boolean): StyleSpecification => {
   return {
     version: 8,
     glyphs:
@@ -42,13 +16,13 @@ const getStyle = (index: number, showLabels: boolean): StyleSpecification => {
         url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
       },
     },
-    layers: layers("protomaps", nameToFlavor.get(flavorName)!, { lang: showLabels ? "en" : undefined }),
+    layers: flavor ? layers("protomaps", flavor, { lang: showLabels ? "en" : undefined }) : []
   };
 };
 
-const FlavorRow: Component<{ name: string, flavor: Flavor }> = (props) => {
+const FlavorRow: Component<{ name: string }> = (props) => {
   return (
-    <div class="flavorRow" style={{ "background-color": props.flavor.background, "color": props.flavor.city_label }}>
+    <div class="flavorRow">
       {props.name}
     </div>
   )
@@ -57,7 +31,7 @@ const FlavorRow: Component<{ name: string, flavor: Flavor }> = (props) => {
 function App() {
   let map: maplibregl.Map;
 
-  const [selectedIndex, setSelectedIndex] = createSignal(0);
+  const [selectedFlavorName, setSelectedFlavorName] = createSignal();
   const [showLabels, setShowLabels] = createSignal(true);
 
   onMount(async () => {
@@ -68,17 +42,25 @@ function App() {
 
     map = new maplibregl.Map({
       container: "map",
-      style: getStyle(selectedIndex(), showLabels()),
+      style: getStyle(undefined, showLabels()),
     });
   });
 
-  createEffect(() => {
-    map.setStyle(getStyle(selectedIndex(), showLabels()));
+  const [flavorList] = createResource(async () => {
+    const resp = await fetch("/flavors.json");
+    const j = await resp.json();
+    setSelectedFlavorName(j[0]);
+    return j;
+  })
+
+  const [flavorJson] = createResource(selectedFlavorName, async () => {
+    const resp = await fetch(`/flavors/${selectedFlavorName()}.json`);
+    return await resp.json();
   });
 
-  const selectFlavor = (i: number) => {
-    setSelectedIndex(i);
-  }
+  createEffect(() => {
+    map.setStyle(getStyle(flavorJson(), showLabels()));
+  });
 
   const handleShowLabelsChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -88,7 +70,9 @@ function App() {
   return (
     <div id="container">
       <div class="sidebar">
-        <For each={FLAVORS}>{(flavorName,i) => <div onClick={() => selectFlavor(i())}><FlavorRow name={flavorName} flavor={nameToFlavor.get(flavorName)!}/></div>}</For>
+        <Show when={flavorList()}>
+          <For each={flavorList()}>{(flavorName) => <div onClick={() => setSelectedFlavorName(flavorName)}><FlavorRow name={flavorName}/></div>}</For>
+        </Show>
         <input
           id="showLabels"
           type="checkbox"

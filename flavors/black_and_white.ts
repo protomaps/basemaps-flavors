@@ -81,7 +81,7 @@ export default <Flavor>{
   city_label_halo: WHITE,
   state_label: BLACK,
   state_label_halo: WHITE,
-  country_label: BLACK
+  country_label: BLACK,
 
   address_label: BLACK,
   address_label_halo: WHITE,
