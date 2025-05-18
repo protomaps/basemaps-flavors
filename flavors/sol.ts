@@ -92,7 +92,7 @@ export default <Flavor> {
     glacier: 'rgba(239, 240, 231, 1)',
     scrub: 'rgba(176, 205, 174, 1)',
     forest: 'rgba(149, 207, 194, 1)'
-  }
+  },
 
   address_label: "black",
   address_label_halo: "white",
