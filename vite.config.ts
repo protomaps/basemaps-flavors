@@ -34,9 +34,9 @@ export default defineConfig({
       },
       async generateBundle() {
         const flist = flavorList();
-        fs.writeFileSync(path.resolve(__dirname, 'dist', 'flavors.json'), JSON.stringify(flist, null, 2))
         const dir = path.resolve(__dirname, 'dist', 'flavors')
-        fs.mkdirSync(dir);
+        fs.mkdirSync(dir, {recursive: true});
+        fs.writeFileSync(path.resolve(__dirname, 'dist', 'flavors.json'), JSON.stringify(flist, null, 2))
         for (const name of flist) {
           fs.writeFileSync(path.resolve(__dirname, 'dist', 'flavors', `${name}.json`), JSON.stringify(await flavorBody(name), null, 2))
         }
