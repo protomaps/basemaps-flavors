@@ -48,7 +48,9 @@ function App() {
 
   const [flavorList] = createResource(async () => {
     const resp = await fetch("/flavors.json");
-    return await resp.json();
+    const j = await resp.json();
+    setSelectedFlavorName(j[0]);
+    return j;
   })
 
   const [flavorJson] = createResource(selectedFlavorName, async () => {
