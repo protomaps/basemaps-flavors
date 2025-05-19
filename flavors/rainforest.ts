@@ -1,6 +1,6 @@
-import { Flavor } from "@protomaps/basemaps";
+import type { Flavor } from "@protomaps/basemaps";
 
-export default <Flavor> {
+export default (<Flavor>{
   background: "rgba(231, 240, 221, 1)",
   earth: "rgba(230, 203, 177, 1)",
   park_a: "#1e4f4a",
@@ -80,20 +80,20 @@ export default <Flavor> {
   state_label_halo: "rgba(0,0,0,0)",
   country_label: "rgba(255, 255, 255, 1)",
 
-  regular: 'Josefin Sans Medium',
-  bold: 'Josefin Sans Bold',
-  italic: 'Josefin Sans Medium Italic',
+  regular: "Josefin Sans Medium",
+  bold: "Josefin Sans Bold",
+  italic: "Josefin Sans Medium Italic",
 
   landcover: {
-    grassland: 'rgba(147, 163, 53, 1)',
-    barren: 'rgba(204, 183, 62, 1)',
-    urban_area: 'rgba(182, 38, 25, 1)',
-    farmland: 'rgba(57, 130, 75, 1)',
-    glacier: 'rgba(255, 255, 255, 1)',
-    scrub: 'rgba(93, 80, 26, 1)',
-    forest: 'rgba(29, 75, 76, 1)'
+    grassland: "rgba(147, 163, 53, 1)",
+    barren: "rgba(204, 183, 62, 1)",
+    urban_area: "rgba(182, 38, 25, 1)",
+    farmland: "rgba(57, 130, 75, 1)",
+    glacier: "rgba(255, 255, 255, 1)",
+    scrub: "rgba(93, 80, 26, 1)",
+    forest: "rgba(29, 75, 76, 1)",
   },
 
   address_label: "black",
   address_label_halo: "white",
-};
+});

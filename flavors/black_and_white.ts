@@ -1,9 +1,9 @@
-import { Flavor } from "@protomaps/basemaps";
+import type { Flavor } from "@protomaps/basemaps";
 
 const WHITE = "rgba(255, 255, 255, 1)";
 const BLACK = "rgba(0, 0, 0, 1)";
 
-export default <Flavor>{
+export default (<Flavor>{
   background: WHITE,
   earth: WHITE,
   park_a: WHITE,
@@ -69,8 +69,8 @@ export default <Flavor>{
   bridges_major: BLACK,
   bridges_highway: BLACK,
 
-  roads_label_minor:   BLACK,
-  roads_label_minor_halo:  WHITE,
+  roads_label_minor: BLACK,
+  roads_label_minor_halo: WHITE,
   roads_label_major: BLACK,
   roads_label_major_halo: WHITE,
   ocean_label: WHITE,
@@ -85,4 +85,4 @@ export default <Flavor>{
 
   address_label: BLACK,
   address_label_halo: WHITE,
-};
+});

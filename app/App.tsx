@@ -1,11 +1,22 @@
-import { For, createSignal, createEffect, createResource, onMount, Component, Show } from "solid-js";
+import {
+  type Component,
+  For,
+  Show,
+  createEffect,
+  createResource,
+  createSignal,
+  onMount,
+} from "solid-js";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./App.css";
+import { type Flavor, layers } from "@protomaps/basemaps";
 import maplibregl from "maplibre-gl";
-import { StyleSpecification } from "maplibre-gl";
-import { Flavor, layers } from "@protomaps/basemaps";
+import type { StyleSpecification } from "maplibre-gl";
 
-const getStyle = (flavor: Flavor | undefined, showLabels: boolean): StyleSpecification => {
+const getStyle = (
+  flavor: Flavor | undefined,
+  showLabels: boolean,
+): StyleSpecification => {
   return {
     version: 8,
     glyphs:
@@ -16,17 +27,15 @@ const getStyle = (flavor: Flavor | undefined, showLabels: boolean): StyleSpecifi
         url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
       },
     },
-    layers: flavor ? layers("protomaps", flavor, { lang: showLabels ? "en" : undefined }) : []
+    layers: flavor
+      ? layers("protomaps", flavor, { lang: showLabels ? "en" : undefined })
+      : [],
   };
 };
 
 const FlavorRow: Component<{ name: string }> = (props) => {
-  return (
-    <div class="flavorRow">
-      {props.name}
-    </div>
-  )
-}
+  return <div class="flavorRow">{props.name}</div>;
+};
 
 function App() {
   let map: maplibregl.Map;
@@ -51,7 +60,7 @@ function App() {
     const j = await resp.json();
     setSelectedFlavorName(j[0]);
     return j;
-  })
+  });
 
   const [flavorJson] = createResource(selectedFlavorName, async () => {
     const resp = await fetch(`flavors/${selectedFlavorName()}.json`);
@@ -71,7 +80,16 @@ function App() {
     <div id="container">
       <div class="sidebar">
         <Show when={flavorList()}>
-          <For each={flavorList()}>{(flavorName) => <div onClick={() => setSelectedFlavorName(flavorName)}><FlavorRow name={flavorName}/></div>}</For>
+          <For each={flavorList()}>
+            {(flavorName) => (
+              <button
+                type="button"
+                onClick={() => setSelectedFlavorName(flavorName)}
+              >
+                <FlavorRow name={flavorName} />
+              </button>
+            )}
+          </For>
         </Show>
         <input
           id="showLabels"
@@ -81,7 +99,7 @@ function App() {
         />
         <label for="showLabels">Show labels</label>
       </div>
-      <div id="map"></div>
+      <div id="map" />
     </div>
   );
 }

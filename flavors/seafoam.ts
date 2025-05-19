@@ -1,6 +1,6 @@
-import { Flavor } from "@protomaps/basemaps";
+import type { Flavor } from "@protomaps/basemaps";
 
-export default <Flavor>{
+export default (<Flavor>{
   background: "rgba(231, 240, 221, 1)",
   earth: "rgba(231, 240, 221, 1)",
   park_a: "#8ad3d4",
@@ -96,4 +96,4 @@ export default <Flavor>{
 
   address_label: "black",
   address_label_halo: "white",
-};
+});
