@@ -77,7 +77,7 @@ function App() {
 
   return (
     <div class="w-full h-dvh flex">
-      <div class="w-1/4 p-4" class="space-y-2">
+      <div class="w-1/4 p-4 space-y-2">
         <Show when={flavorList()}>
           <For each={flavorList()}>
             {(flavorName) => (
