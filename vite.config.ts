@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
+import tailwindcss from '@tailwindcss/vite'
 
 const flavorList = () => {
   const contentDir = path.resolve(__dirname, "flavors");
@@ -49,5 +50,6 @@ export default defineConfig({
       },
     },
     solid(),
+    tailwindcss()
   ],
 });

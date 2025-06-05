@@ -8,7 +8,6 @@ import {
   onMount,
 } from "solid-js";
 import "maplibre-gl/dist/maplibre-gl.css";
-import "./App.css";
 import { type Flavor, layers } from "@protomaps/basemaps";
 import maplibregl from "maplibre-gl";
 import type { StyleSpecification } from "maplibre-gl";
@@ -77,13 +76,14 @@ function App() {
   };
 
   return (
-    <div id="container">
-      <div class="sidebar">
+    <div class="w-full h-dvh flex">
+      <div class="w-1/4 p-4" class="space-y-2">
         <Show when={flavorList()}>
           <For each={flavorList()}>
             {(flavorName) => (
               <button
                 type="button"
+                class="w-full cursor-pointer border-1"
                 onClick={() => setSelectedFlavorName(flavorName)}
               >
                 <FlavorRow name={flavorName} />
@@ -99,7 +99,7 @@ function App() {
         />
         <label for="showLabels">Show labels</label>
       </div>
-      <div id="map" />
+      <div id="map" class="h-dvh w-3/4" />
     </div>
   );
 }
