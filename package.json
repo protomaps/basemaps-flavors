@@ -12,9 +12,9 @@
     "format": "biome format --write app flavors vite.config.ts --javascript-formatter-indent-style=space --json-formatter-indent-style=space"
   },
   "dependencies": {
-    "@protomaps/basemaps": "5.3.0",
-    "maplibre-gl": "5.4.0",
-    "solid-js": "1.9.5"
+    "@protomaps/basemaps": "5.7.0",
+    "maplibre-gl": "5.18.0",
+    "solid-js": "1.9.11"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
